@@ -1,0 +1,92 @@
+{
+  "name": "ulint",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "uLint is a modern JavaScript/TypeScript linter that keeps your code clean and error-free, inspired by the clarity of the sky.",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "bin": {
+    "ulint": "./dist/cli.js"
+  },
+  "scripts": {
+    "git": "pnpm version-patch && read -p \"Enter commit message: \" msg; git add .; git commit -m \"$msg\"; git push",
+    "version-patch": "npm version patch",
+    "prepublishOnly": "pnpm clean && pnpm lint && pnpm check-types && pnpm build",
+    "release": "npm publish --access public",
+    "test": "vitest",
+    "check-types": "tsc --noEmit",
+    "lint": "ulint . --max-warnings 0",
+    "clean": "rm -rf dist",
+    "build": "pnpm vite build",
+    "dev": "pnpm vite build -w"
+  },
+  "keywords": [
+    "ulint",
+    "lint",
+    "eslint",
+    "react",
+    "next",
+    "node",
+    "javascript",
+    "typescript",
+    "wrapper",
+    "linter",
+    "code quality",
+    "code review",
+    "clean code",
+    "static analysis"
+  ],
+  "author": {
+    "name": "Estarlin R",
+    "email": "dev@estarlincito.com",
+    "url": "https://estarlincito.com"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/estarlincito/ulint#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/estarlincito/ulint.git"
+  },
+  "bugs": {
+    "url": "https://github.com/estarlincito/ulint/issues"
+  },
+  "dependencies": {
+    "@eslint/compat": "^1.3.2",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.35.0",
+    "@next/eslint-plugin-next": "^15.5.2",
+    "@types/eslint": "^9.6.1",
+    "@typescript-eslint/parser": "^8.42.0",
+    "eslint": "^9.35.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^3.10.1",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-safeguard": "^2.0.7",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-sort-keys-fix": "^1.1.2",
+    "eslint-plugin-unused-imports": "^4.2.0",
+    "globals": "^15.15.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.42.0",
+    "ulint": "link:"
+  },
+  "devDependencies": {
+    "@types/eslint-config-prettier": "^6.11.3",
+    "@types/eslint__eslintrc": "^2.1.2",
+    "@types/node": "^24.3.1",
+    "eslint": "^9.34.0",
+    "prettier-plugin-packagejson": "^2.5.19",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.4",
+    "vite-plugin-dts": "^4.5.4"
+  }
+}
