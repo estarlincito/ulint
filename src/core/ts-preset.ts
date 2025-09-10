@@ -1,5 +1,6 @@
 import parser from '@typescript-eslint/parser';
 import { defineConfig } from 'eslint/config';
+import importPlugin from 'eslint-plugin-import';
 import * as ts from 'typescript-eslint';
 
 import { jsPreset } from './js-preset.js';
@@ -20,14 +21,13 @@ export const tsPreset = defineConfig([
   ...jsPreset,
   ...tseslintRecommended,
   ...tseslintStrict,
+  importPlugin.flatConfigs.typescript,
   {
     files,
     languageOptions: {
       parser,
       parserOptions: {
-        ecmaVersion: 'latest',
         project: true,
-        sourceType: 'module',
         tsconfigRootDir: process.cwd(),
       },
     },
@@ -41,7 +41,15 @@ export const tsPreset = defineConfig([
       '@typescript-eslint/no-redundant-type-constituents': 'warn',
       '@typescript-eslint/no-unnecessary-type-assertion': 'warn',
       '@typescript-eslint/no-unsafe-enum-comparison': 'warn',
-      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          args: 'after-used',
+          argsIgnorePattern: '^_',
+          vars: 'all',
+          varsIgnorePattern: '^_',
+        },
+      ],
       '@typescript-eslint/prefer-find': 'warn',
       '@typescript-eslint/prefer-includes': 'warn',
       '@typescript-eslint/prefer-nullish-coalescing': 'warn',

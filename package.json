@@ -1,7 +1,7 @@
 {
   "name": "ulint",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "uLint is a modern JavaScript/TypeScript linter that keeps your code clean and error-free, inspired by the clarity of the sky.",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
@@ -73,11 +73,11 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "eslint-plugin-unused-imports": "^4.2.0",
+    "eslint-plugin-promise": "^7.2.1",
     "globals": "^15.15.0",
     "prettier": "^3.6.2",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.42.0",
-    "ulint": "link:"
+    "typescript-eslint": "^8.42.0"
   },
   "devDependencies": {
     "@types/eslint-config-prettier": "^6.11.3",

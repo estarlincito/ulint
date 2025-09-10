@@ -4,6 +4,8 @@ import { defineConfig } from 'eslint/config';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import Import from 'eslint-plugin-import';
 import prettier from 'eslint-plugin-prettier';
+// @ts-expect-error
+import pluginPromise from 'eslint-plugin-promise';
 import safeguard from 'eslint-plugin-safeguard';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 // @ts-expect-error
@@ -15,14 +17,18 @@ export const jsPreset = defineConfig([
   Import.flatConfigs.recommended,
   eslint.configs.recommended,
   eslintConfigPrettier,
+  pluginPromise.configs['flat/recommended'],
   { ignores: ['**/node_modules/**', '**/dist/**', '**/temp/**', '**/tpm/**'] },
   {
     languageOptions: {
+      ecmaVersion: 'latest',
       globals: {
         ...globals.browser,
         ...globals.node,
         ...globals.es2025,
       },
+      parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+      sourceType: 'module',
     },
     plugins: {
       prettier,
@@ -96,6 +102,8 @@ export const jsPreset = defineConfig([
       ],
       'prefer-template': 'error',
       'prettier/prettier': 'error',
+      'promise/always-return': 'error',
+      'promise/catch-or-return': 'error',
       'safeguard/no-raw-error': 'warn',
       'safeguard/no-self-assignments': 'error',
       'safeguard/trycatch-ensurer': 'off',
