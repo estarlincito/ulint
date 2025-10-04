@@ -1,27 +1,15 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
-import fs from 'fs';
+import { doGlob } from 'doglob';
 import path from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-
-const dir = path.resolve(__dirname, 'src');
-const componentFiles = fs
-  .readdirSync(dir)
-  .filter((file) => file.endsWith('.ts'));
-
-// Generate entry points dynamically
-const entry = componentFiles.reduce((acc, file) => {
-  const name = path.basename(file, path.extname(file));
-
-  return { ...acc, [name]: path.resolve(dir, file) };
-}, {});
+const entry = await doGlob(['src/**/*.ts'], { absolute: true });
 
 const dtsPlugin = dts({
   entryRoot: 'src',
-  insertTypesEntry: true,
   outDir: 'dist',
   tsconfigPath: './tsconfig.json',
-  exclude: ['vite.config.ts'],
+  exclude: ['vite.config.ts', 'src/cli.ts', 'src/scripts/postinstall.ts'],
 });
 
 export default defineConfig({
@@ -30,8 +18,10 @@ export default defineConfig({
     lib: {
       entry,
     },
-    minify: false,
     target: 'esnext',
+    reportCompressedSize: true,
+    minify: 'esbuild',
+    emptyOutDir: true,
 
     rollupOptions: {
       external: ['*'],
@@ -41,6 +31,7 @@ export default defineConfig({
           dir: 'dist',
           entryFileNames: '[name].js',
           preserveModules: true,
+          preserveModulesRoot: 'src',
         },
       ],
     },
@@ -48,7 +39,7 @@ export default defineConfig({
   plugins: [dtsPlugin],
   resolve: {
     alias: {
-      '@': dir,
+      '@': path.resolve(__dirname, 'src'),
     },
   },
 });
